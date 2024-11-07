@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "Đăng nhập";
+}
+
+<div class="login-container">
+    <h2>Đăng nhập</h2>
+
+    @using (Html.BeginForm("Login", "Dangnhap", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            @Html.Label("Tên đăng nhập")
+            @Html.TextBox("username", null, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Mật khẩu")
+            @Html.Password("password", null, new { @class = "form-control" })
+        </div>
+
+        <button type="submit" class="btn btn-primary">Đăng nhập</button>
+    }
+
+    <p>
+        <a href="@Url.Action("Create", "Dangky")">Chưa có tài khoản? Đăng ký ngay!</a>
+    </p>
+
+    @* Hiển thị thông báo lỗi nếu có *@
+    @if (!String.IsNullOrEmpty(ViewData["ErrorMessage"] as string))
+    {
+        <div class="alert alert-danger">
+            @ViewData["ErrorMessage"]
+        </div>
+    }
+</div>

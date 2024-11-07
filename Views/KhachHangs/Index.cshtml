@@ -1,0 +1,45 @@
+﻿@model IEnumerable<QLBVot.Models.KhachHang>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Danh sách khách hàng</h2>
+
+<p>
+    @Html.ActionLink("Thêm mới", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TenKhachHang)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiaChi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SoDienThoai)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenKhachHang)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiaChi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SoDienThoai)
+        </td>
+        <td>
+            @Html.ActionLink("Sửa", "Edit", new { id=item.MaKhachHang }) |
+            @Html.ActionLink("Thông tin", "Details", new { id=item.MaKhachHang }) |
+            @Html.ActionLink("Xoá", "Delete", new { id=item.MaKhachHang })
+        </td>
+    </tr>
+}
+
+</table>

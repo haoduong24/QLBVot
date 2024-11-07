@@ -1,0 +1,57 @@
+﻿@model IEnumerable<QLBVot.Models.ThanhToan>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Thanh toán</h2>
+
+<p>
+    @Html.ActionLink("Thêm mới", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PhuongThucThanhToan)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NgayThanhToan)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SoTienThanhToan)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TrangThaiThanhToan)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DonHang.TenKhachHang)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhuongThucThanhToan)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NgayThanhToan)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SoTienThanhToan)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TrangThaiThanhToan)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DonHang.TenKhachHang)
+        </td>
+        <td>
+            @Html.ActionLink("Sửa", "Edit", new { id=item.MaThanhToan }) |
+            @Html.ActionLink("Thông tin", "Details", new { id=item.MaThanhToan }) |
+            @Html.ActionLink("Xoá", "Delete", new { id=item.MaThanhToan })
+        </td>
+    </tr>
+}
+
+</table>

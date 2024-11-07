@@ -1,0 +1,45 @@
+﻿@model IEnumerable<QLBVot.Models.Vot>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Danh sách vợt</h2>
+
+<p>
+    @Html.ActionLink("Thêm mới", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TenVot)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GiaBan)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SoLuongTon)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenVot)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GiaBan)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SoLuongTon)
+        </td>
+        <td>
+            @Html.ActionLink("Sửa", "Edit", new { id=item.MaVot }) |
+            @Html.ActionLink("Thông tin", "Details", new { id=item.MaVot }) |
+            @Html.ActionLink("Xoá", "Delete", new { id=item.MaVot })
+        </td>
+    </tr>
+}
+
+</table>

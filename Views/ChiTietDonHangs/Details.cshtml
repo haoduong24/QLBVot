@@ -1,0 +1,57 @@
+﻿@model QLBVot.Models.ChiTietDonHang
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Thông tin chi tiết</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MaVot)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaVot)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SoLuong)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoLuong)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DonGia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DonGia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ThanhTien)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ThanhTien)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DonHang.TenKhachHang)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DonHang.TenKhachHang)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Sửa", "Edit", new { id = Model.MaChiTietDonHang }) |
+    @Html.ActionLink("Quay lại", "Index")
+</p>

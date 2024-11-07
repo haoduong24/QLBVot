@@ -1,0 +1,41 @@
+﻿@model QLBVot.Models.HoaDon
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Thông tin hoá đơn</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NgayLapHoaDon)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgayLapHoaDon)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TongTien)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TongTien)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DonHang.TenKhachHang)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DonHang.TenKhachHang)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Sửa", "Edit", new { id = Model.MaHoaDon }) |
+    @Html.ActionLink("Quay lại", "Index")
+</p>

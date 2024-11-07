@@ -1,0 +1,60 @@
+﻿@model QLBVot.Models.ThanhToan
+
+@{
+    ViewBag.Title = "Delete";
+}
+<h3>Bạn có muốn xoá không?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PhuongThucThanhToan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhuongThucThanhToan)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NgayThanhToan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgayThanhToan)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SoTienThanhToan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoTienThanhToan)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TrangThaiThanhToan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TrangThaiThanhToan)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DonHang.TenKhachHang)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DonHang.TenKhachHang)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Quay lại", "Index")
+        </div>
+    }
+</div>

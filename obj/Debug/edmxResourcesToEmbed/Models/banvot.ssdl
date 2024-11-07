@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DVHVOTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ChiTietDonHang">
+    <Key>
+      <PropertyRef Name="MaChiTietDonHang" />
+    </Key>
+    <Property Name="MaChiTietDonHang" Type="int" Nullable="false" />
+    <Property Name="MaDonHang" Type="int" />
+    <Property Name="MaVot" Type="varchar" MaxLength="50" />
+    <Property Name="SoLuong" Type="int" />
+    <Property Name="DonGia" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="ThanhTien" Type="decimal" Precision="10" Scale="2" />
+  </EntityType>
+  <EntityType Name="DonHang">
+    <Key>
+      <PropertyRef Name="MaDonHang" />
+    </Key>
+    <Property Name="MaDonHang" Type="int" Nullable="false" />
+    <Property Name="NgayDatHang" Type="date" />
+    <Property Name="TenKhachHang" Type="varchar" MaxLength="100" />
+    <Property Name="TrangThai" Type="varchar" MaxLength="50" />
+    <Property Name="TongTien" Type="decimal" Precision="10" Scale="2" />
+  </EntityType>
+  <EntityType Name="HoaDon">
+    <Key>
+      <PropertyRef Name="MaHoaDon" />
+    </Key>
+    <Property Name="MaHoaDon" Type="int" Nullable="false" />
+    <Property Name="MaDonHang" Type="int" />
+    <Property Name="NgayLapHoaDon" Type="date" />
+    <Property Name="TongTien" Type="decimal" Precision="10" Scale="2" />
+  </EntityType>
+  <EntityType Name="KhachHang">
+    <Key>
+      <PropertyRef Name="MaKhachHang" />
+    </Key>
+    <Property Name="MaKhachHang" Type="int" Nullable="false" />
+    <Property Name="TenKhachHang" Type="varchar" MaxLength="100" />
+    <Property Name="DiaChi" Type="varchar" MaxLength="255" />
+    <Property Name="SoDienThoai" Type="varchar" MaxLength="15" />
+  </EntityType>
+  <EntityType Name="Kho">
+    <Key>
+      <PropertyRef Name="MaKho" />
+    </Key>
+    <Property Name="MaKho" Type="int" Nullable="false" />
+    <Property Name="MaVot" Type="varchar" MaxLength="50" />
+    <Property Name="SoLuongTon" Type="int" />
+  </EntityType>
+  <EntityType Name="NhanVien">
+    <Key>
+      <PropertyRef Name="MaNhanVien" />
+    </Key>
+    <Property Name="MaNhanVien" Type="int" Nullable="false" />
+    <Property Name="TenNhanVien" Type="varchar" MaxLength="100" />
+    <Property Name="ChucVu" Type="varchar" MaxLength="50" />
+    <Property Name="SoDienThoai" Type="varchar" MaxLength="15" />
+    <Property Name="Email" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="TaiKhoan">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="ThanhToan">
+    <Key>
+      <PropertyRef Name="MaThanhToan" />
+    </Key>
+    <Property Name="MaThanhToan" Type="int" Nullable="false" />
+    <Property Name="MaDonHang" Type="int" />
+    <Property Name="PhuongThucThanhToan" Type="varchar" MaxLength="50" />
+    <Property Name="NgayThanhToan" Type="date" />
+    <Property Name="SoTienThanhToan" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="TrangThaiThanhToan" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Vot">
+    <Key>
+      <PropertyRef Name="MaVot" />
+    </Key>
+    <Property Name="MaVot" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="TenVot" Type="varchar" MaxLength="100" />
+    <Property Name="GiaBan" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="SoLuongTon" Type="int" />
+  </EntityType>
+  <Association Name="FK__ChiTietDo__MaDon__267ABA7A">
+    <End Role="DonHang" Type="Self.DonHang" Multiplicity="0..1" />
+    <End Role="ChiTietDonHang" Type="Self.ChiTietDonHang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DonHang">
+        <PropertyRef Name="MaDonHang" />
+      </Principal>
+      <Dependent Role="ChiTietDonHang">
+        <PropertyRef Name="MaDonHang" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__HoaDon__MaDonHan__34C8D9D1">
+    <End Role="DonHang" Type="Self.DonHang" Multiplicity="0..1" />
+    <End Role="HoaDon" Type="Self.HoaDon" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DonHang">
+        <PropertyRef Name="MaDonHang" />
+      </Principal>
+      <Dependent Role="HoaDon">
+        <PropertyRef Name="MaDonHang" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Kho__MaVot__31EC6D26">
+    <End Role="Vot" Type="Self.Vot" Multiplicity="0..1" />
+    <End Role="Kho" Type="Self.Kho" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vot">
+        <PropertyRef Name="MaVot" />
+      </Principal>
+      <Dependent Role="Kho">
+        <PropertyRef Name="MaVot" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ThanhToan__MaDon__2D27B809">
+    <End Role="DonHang" Type="Self.DonHang" Multiplicity="0..1" />
+    <End Role="ThanhToan" Type="Self.ThanhToan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DonHang">
+        <PropertyRef Name="MaDonHang" />
+      </Principal>
+      <Dependent Role="ThanhToan">
+        <PropertyRef Name="MaDonHang" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DVHVOTModelStoreContainer">
+    <EntitySet Name="ChiTietDonHang" EntityType="Self.ChiTietDonHang" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DonHang" EntityType="Self.DonHang" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HoaDon" EntityType="Self.HoaDon" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="KhachHang" EntityType="Self.KhachHang" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Kho" EntityType="Self.Kho" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NhanVien" EntityType="Self.NhanVien" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TaiKhoan" EntityType="Self.TaiKhoan" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ThanhToan" EntityType="Self.ThanhToan" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Vot" EntityType="Self.Vot" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__ChiTietDo__MaDon__267ABA7A" Association="Self.FK__ChiTietDo__MaDon__267ABA7A">
+      <End Role="DonHang" EntitySet="DonHang" />
+      <End Role="ChiTietDonHang" EntitySet="ChiTietDonHang" />
+    </AssociationSet>
+    <AssociationSet Name="FK__HoaDon__MaDonHan__34C8D9D1" Association="Self.FK__HoaDon__MaDonHan__34C8D9D1">
+      <End Role="DonHang" EntitySet="DonHang" />
+      <End Role="HoaDon" EntitySet="HoaDon" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Kho__MaVot__31EC6D26" Association="Self.FK__Kho__MaVot__31EC6D26">
+      <End Role="Vot" EntitySet="Vot" />
+      <End Role="Kho" EntitySet="Kho" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ThanhToan__MaDon__2D27B809" Association="Self.FK__ThanhToan__MaDon__2D27B809">
+      <End Role="DonHang" EntitySet="DonHang" />
+      <End Role="ThanhToan" EntitySet="ThanhToan" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
