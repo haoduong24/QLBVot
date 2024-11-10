@@ -1,16 +1,19 @@
 ﻿@model IEnumerable<QLBVot.Models.ThanhToan>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Danh sách Thanh Toán";
 }
 
-<h2>Thanh toán</h2>
+<h2>Danh sách Thanh Toán</h2>
 
 <p>
-    @Html.ActionLink("Thêm mới", "Create")
+    @Html.ActionLink("Thêm mới", "Create", null, new { @class = "btn btn-primary" })
 </p>
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MaThanhToan)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.PhuongThucThanhToan)
         </th>
@@ -23,35 +26,32 @@
         <th>
             @Html.DisplayNameFor(model => model.TrangThaiThanhToan)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DonHang.TenKhachHang)
-        </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhuongThucThanhToan)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NgayThanhToan)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SoTienThanhToan)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TrangThaiThanhToan)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DonHang.TenKhachHang)
-        </td>
-        <td>
-            @Html.ActionLink("Sửa", "Edit", new { id=item.MaThanhToan }) |
-            @Html.ActionLink("Thông tin", "Details", new { id=item.MaThanhToan }) |
-            @Html.ActionLink("Xoá", "Delete", new { id=item.MaThanhToan })
-        </td>
-    </tr>
-}
-
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaThanhToan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhuongThucThanhToan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayThanhToan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoTienThanhToan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrangThaiThanhToan)
+            </td>
+            <td>
+                @Html.ActionLink("Chi tiết", "Details", new { id = item.MaThanhToan }) |
+                @Html.ActionLink("Sửa", "Edit", new { id = item.MaThanhToan }) |
+                @Html.ActionLink("Xóa", "Delete", new { id = item.MaThanhToan })
+            </td>
+        </tr>
+    }
 </table>

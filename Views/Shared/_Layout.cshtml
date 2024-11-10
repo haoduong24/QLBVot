@@ -1,238 +1,187 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-<style>
+    <title>@ViewBag.Title - Shopping Now!</title>
+    @Styles.Render("~/Content/css") <!-- Kết nối các file CSS -->
+    @Scripts.Render("~/bundles/modernizr") <!-- Kết nối các file script -->
+    <!-- Thêm Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <style>
+        /* CSS mặc định cho toàn bộ trang */
         body {
-            background-color: #f4f7fc;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-        }
-
-        .login-container {
-            max-width: 400px;
-            margin: 100px auto;
-            padding: 30px;
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        h2 {
-            text-align: center;
+            background-color: #f4f4f4;
             color: #333;
-            margin-bottom: 30px;
-            font-size: 24px;
-            font-weight: bold;
         }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: bold;
-            color: #555;
-            margin-bottom: 5px;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 14px;
-            box-sizing: border-box;
-        }
-
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: #007bff;
+        /* Thanh Navbar */
+        .navbar {
+            background-color: #333;
             color: white;
-            font-size: 16px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        p {
+            padding: 10px 0;
             text-align: center;
-            margin-top: 20px;
         }
 
-        p a {
-            color: #007bff;
-            text-decoration: none;
-            font-weight: bold;
+            .navbar a {
+                color: white;
+                text-decoration: none;
+                padding: 10px 15px;
+                margin: 0 5px;
+                display: inline-block;
+            }
+
+                .navbar a:hover {
+                    background-color: #ff9f1c;
+                    color: white;
+                }
+
+            .navbar .brand {
+                font-size: 24px;
+                font-weight: bold;
+                margin-right: 30px;
+            }
+
+        /* Các mục trong navbar */
+        .navbar-nav {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: flex-end; /* Căn chỉnh các mục về phía bên phải */
         }
 
-        p a:hover {
-            text-decoration: underline;
+            .navbar-nav li {
+                display: inline-block;
+            }
+
+            .navbar-nav .nav-item {
+                display: inline-block;
+                padding: 0 10px;
+            }
+
+        /* Điều chỉnh vị trí logout về góc phải */
+        .logout-icon {
+            margin-left: auto; /* Tự động căn chỉnh về phía bên phải */
         }
 
-        .alert-danger {
-            background-color: #f8d7da;
-            border-color: #f5c6cb;
-            color: #721c24;
+        .alert {
+            background-color: #ffeb3b;
+            color: #333;
             padding: 15px;
-            border-radius: 4px;
+            border-radius: 5px;
             margin-top: 20px;
         }
 
+        /* Footer */
         footer {
+            background-color: #333;
+            color: white;
             text-align: center;
-            margin-top: 30px;
-            font-size: 14px;
-            color: #666;
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
         }
-        /* Trang đăng ký và đăng nhập */
-body {
-    background-color: #f4f7fc;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
-}
 
-/* Định dạng container của form */
-.login-container {
-    max-width: 400px;
-    margin: 100px auto;
-    padding: 30px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+        /* Main Content */
+        .body-content {
+            padding: 20px;
+        }
 
-/* Tiêu đề */
-h2 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 30px;
-    font-size: 24px;
-    font-weight: bold;
-}
+        /* Thêm padding cho liên kết đăng nhập */
+        .nav-item {
+            padding: 10px;
+        }
 
-/* Form input fields */
-.form-group {
-    margin-bottom: 15px;
-}
+        .cart-icon {
+            font-size: 20px;
+            margin-left: 10px;
+        }
 
-.form-group label {
-    font-size: 14px;
-    font-weight: 600;
-    color: #333;
-}
+        .logout-icon {
+            font-size: 20px;
+            margin-left: 10px;
+        }
 
-.form-group input {
-    width: 100%;
-    padding: 12px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
+        /* Hiển thị form đăng nhập khi chưa đăng nhập */
+        .login-form {
+            text-align: center;
+            padding: 50px 0;
+        }
 
-.form-group input:focus {
-    border-color: #007bff;
-    outline: none;
-}
+            .login-form input[type="text"],
+            .login-form input[type="password"] {
+                padding: 10px;
+                margin: 10px 0;
+                width: 300px;
+                font-size: 16px;
+            }
 
-/* Button */
-button {
-    width: 100%;
-    padding: 12px;
-    background-color: #007bff;
-    border: none;
-    color: white;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-}
+            .login-form button {
+                padding: 10px 15px;
+                background-color: #333;
+                color: white;
+                border: none;
+                cursor: pointer;
+            }
 
-button:hover {
-    background-color: #0056b3;
-}
-
-/* Responsive Design for smaller screens */
-    h2 {
-        font-size: 20px;
-    }
-
-    .form-group input {
-        font-size: 14px;
-    }
-
-    button {
-        font-size: 14px;
-    }
-</style>
+                .login-form button:hover {
+                    background-color: #ff9f1c;
+                }
+    </style>
 </head>
 <body>
-    @if (Session["UserID"] == null)
-    {
-    <!-- Hiển thị chỉ form đăng nhập -->
-    <div class="container body-content">
-        @RenderBody()  <!-- Hiển thị nội dung trang đăng nhập -->
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
-    }
-    else
-    {
-    <!-- Hiển thị Navbar nếu người dùng đã đăng nhập -->
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+    <!-- Navbar sẽ luôn hiển thị -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-            @Html.ActionLink("HD Badminton", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" href="#">Shopping Now!</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    <li>@Html.ActionLink("Chi Tiết Đơn Hàng", "Index", "ChiTietDonHangs", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Đơn Hàng", "Index", "DonHangs", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Hoá Đơn", "Index", "HoaDons", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Khách Hàng", "Index", "KhachHangs", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Kho", "Index", "Khoes", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Nhân Viên", "Index", "NhanViens", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Thanh Toán", "Index", "ThanhToans", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Sản Phẩm", "Index", "Vots", new { area = "" }, new { @class = "nav-link" })</li>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <!-- Menu điều hướng -->
+                    <li class="nav-item">@Html.ActionLink("Chi Tiết Đơn Hàng", "Index", "ChiTietDonHangs", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Đơn Hàng", "Index", "DonHangs", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Hoá Đơn", "Index", "HoaDons", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Khách Hàng", "Index", "KhachHangs", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Kho", "Index", "Khoes", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Nhân Viên", "Index", "NhanViens", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Thanh Toán", "Index", "ThanhToans", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Sản Phẩm", "Index", "Vots", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li class="nav-item">
+                        <a class="cart-icon" href="@Url.Action("XemGioHang", "GioHang")">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span id="cart-count">@ViewBag.CartCount</span>
+                        </a>
+                    </li>
+                    <li class="nav-item logout-icon">
+                        <a class="logout-icon" href="@Url.Action("Logout", "Dangnhap")">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </a>
+                    </li>
                 </ul>
-                @if (Session["UserID"] != null)
-                {
-                    <ul class="navbar-nav ml-auto">
-                        <li>@Html.ActionLink("Đăng xuất", "Logout", "Dangnhap", new { area = "" }, new { @class = "nav-link" })</li>
-                    </ul>
-                }
             </div>
         </div>
     </nav>
 
-    <!-- Nội dung trang chính -->
+    <!-- Main Content -->
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
     </div>
-    }
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
 
+    <!-- Footer -->
+    <footer>
+        <p>&copy; @DateTime.Now.Year Shopping Now!</p>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery") <!-- Kết nối jQuery -->
+    @Scripts.Render("~/bundles/bootstrap") <!-- Kết nối Bootstrap -->
 </body>
 </html>

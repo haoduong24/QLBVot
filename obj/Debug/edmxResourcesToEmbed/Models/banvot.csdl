@@ -51,7 +51,7 @@
     <Property Name="MaKho" Type="Int32" Nullable="false" />
     <Property Name="MaVot" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="SoLuongTon" Type="Int32" />
-    <NavigationProperty Name="Vot" Relationship="Self.FK__Kho__MaVot__31EC6D26" FromRole="Kho" ToRole="Vot" />
+    <NavigationProperty Name="Vot" Relationship="DVHVOTModel.FK__Kho__MaVot__31EC6D26" FromRole="Kho" ToRole="Vot" />
   </EntityType>
   <EntityType Name="NhanVien">
     <Key>
@@ -74,16 +74,6 @@
     <Property Name="SoTienThanhToan" Type="Decimal" Precision="10" Scale="2" />
     <Property Name="TrangThaiThanhToan" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="DonHang" Relationship="Self.FK__ThanhToan__MaDon__2D27B809" FromRole="ThanhToan" ToRole="DonHang" />
-  </EntityType>
-  <EntityType Name="Vot">
-    <Key>
-      <PropertyRef Name="MaVot" />
-    </Key>
-    <Property Name="MaVot" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="TenVot" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="GiaBan" Type="Decimal" Precision="10" Scale="2" />
-    <Property Name="SoLuongTon" Type="Int32" />
-    <NavigationProperty Name="Khoes" Relationship="Self.FK__Kho__MaVot__31EC6D26" FromRole="Vot" ToRole="Kho" />
   </EntityType>
   <Association Name="FK__ChiTietDo__MaDon__267ABA7A">
     <End Role="DonHang" Type="Self.DonHang" Multiplicity="0..1" />
@@ -121,18 +111,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Kho__MaVot__31EC6D26">
-    <End Role="Vot" Type="Self.Vot" Multiplicity="0..1" />
-    <End Role="Kho" Type="Self.Kho" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Vot">
-        <PropertyRef Name="MaVot" />
-      </Principal>
-      <Dependent Role="Kho">
-        <PropertyRef Name="MaVot" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityContainer Name="DVHVOTEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="ChiTietDonHangs" EntityType="Self.ChiTietDonHang" />
     <EntitySet Name="DonHangs" EntityType="Self.DonHang" />
@@ -141,7 +119,6 @@
     <EntitySet Name="Khoes" EntityType="Self.Kho" />
     <EntitySet Name="NhanViens" EntityType="Self.NhanVien" />
     <EntitySet Name="ThanhToans" EntityType="Self.ThanhToan" />
-    <EntitySet Name="Vots" EntityType="Self.Vot" />
     <AssociationSet Name="FK__ChiTietDo__MaDon__267ABA7A" Association="Self.FK__ChiTietDo__MaDon__267ABA7A">
       <End Role="DonHang" EntitySet="DonHangs" />
       <End Role="ChiTietDonHang" EntitySet="ChiTietDonHangs" />
@@ -154,19 +131,178 @@
       <End Role="DonHang" EntitySet="DonHangs" />
       <End Role="ThanhToan" EntitySet="ThanhToans" />
     </AssociationSet>
-    <AssociationSet Name="FK__Kho__MaVot__31EC6D26" Association="Self.FK__Kho__MaVot__31EC6D26">
+    <EntitySet Name="TAIKHOAN1" EntityType="DVHVOTModel.TAIKHOAN1" />
+    <EntitySet Name="Vots" EntityType="DVHVOTModel.Vot" />
+    <AssociationSet Name="FK__Kho__MaVot__31EC6D26" Association="DVHVOTModel.FK__Kho__MaVot__31EC6D26">
       <End Role="Vot" EntitySet="Vots" />
       <End Role="Kho" EntitySet="Khoes" />
     </AssociationSet>
-    <EntitySet Name="TaiKhoans" EntityType="DVHVOTModel.TaiKhoan" />
+    <EntitySet Name="DatHangs" EntityType="DVHVOTModel.DatHang" />
+    <EntitySet Name="GioHangs" EntityType="DVHVOTModel.GioHang" />
+    <EntitySet Name="NguoiDungs" EntityType="DVHVOTModel.NguoiDung" />
+    <EntitySet Name="SPDatHangs" EntityType="DVHVOTModel.SPDatHang" />
+    <EntitySet Name="SPGioHangs" EntityType="DVHVOTModel.SPGioHang" />
+    <EntitySet Name="Vots1" EntityType="DVHVOTModel.Vot1" />
+    <AssociationSet Name="FK__SPDatHang__DatHa__0B91BA14" Association="DVHVOTModel.FK__SPDatHang__DatHa__0B91BA14">
+      <End Role="DatHang" EntitySet="DatHangs" />
+      <End Role="SPDatHang" EntitySet="SPDatHangs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SPGioHang__GioHa__05D8E0BE" Association="DVHVOTModel.FK__SPGioHang__GioHa__05D8E0BE">
+      <End Role="GioHang" EntitySet="GioHangs" />
+      <End Role="SPGioHang" EntitySet="SPGioHangs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SPDatHang__MaVot__0A9D95DB" Association="DVHVOTModel.FK__SPDatHang__MaVot__0A9D95DB">
+      <End Role="Vot1" EntitySet="Vots1" />
+      <End Role="SPDatHang" EntitySet="SPDatHangs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SPGioHang__MaVot__04E4BC85" Association="DVHVOTModel.FK__SPGioHang__MaVot__04E4BC85">
+      <End Role="Vot1" EntitySet="Vots1" />
+      <End Role="SPGioHang" EntitySet="SPGioHangs" />
+    </AssociationSet>
   </EntityContainer>
-  <EntityType Name="TaiKhoan">
+  <EntityType Name="TAIKHOAN1">
     <Key>
       <PropertyRef Name="UserID" />
     </Key>
-    <Property Name="UserID" Type="Int32" Nullable="false" />
-    <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="Password" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
   </EntityType>
+  <EntityType Name="Vot">
+    <Key>
+      <PropertyRef Name="MaVot" />
+    </Key>
+    <Property Name="MaVot" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TenVot" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="GiaBan" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="SoLuongTon" Type="Int32" />
+    <Property Name="Anh" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Khoes" Relationship="DVHVOTModel.FK__Kho__MaVot__31EC6D26" FromRole="Vot" ToRole="Kho" />
+  </EntityType>
+  <Association Name="FK__Kho__MaVot__31EC6D26">
+    <End Type="DVHVOTModel.Vot" Role="Vot" Multiplicity="0..1" />
+    <End Type="DVHVOTModel.Kho" Role="Kho" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vot">
+        <PropertyRef Name="MaVot" />
+      </Principal>
+      <Dependent Role="Kho">
+        <PropertyRef Name="MaVot" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="DatHang">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="NgayDat" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="TongTien" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="Status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="SPDatHangs" Relationship="DVHVOTModel.FK__SPDatHang__DatHa__0B91BA14" FromRole="DatHang" ToRole="SPDatHang" />
+  </EntityType>
+  <EntityType Name="GioHang">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="SPGioHangs" Relationship="DVHVOTModel.FK__SPGioHang__GioHa__05D8E0BE" FromRole="GioHang" ToRole="SPGioHang" />
+  </EntityType>
+  <EntityType Name="NguoiDung">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="FullName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="PasswordHash" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="SPDatHang">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SoLuong" Type="Int32" Nullable="false" />
+    <Property Name="MaVot" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DatHangId" Type="Int32" />
+    <Property Name="Gia" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <NavigationProperty Name="DatHang" Relationship="DVHVOTModel.FK__SPDatHang__DatHa__0B91BA14" FromRole="SPDatHang" ToRole="DatHang" />
+    <NavigationProperty Name="Vot" Relationship="DVHVOTModel.FK__SPDatHang__MaVot__0A9D95DB" FromRole="SPDatHang" ToRole="Vot1" />
+  </EntityType>
+  <EntityType Name="SPGioHang">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SoLuong" Type="Int32" Nullable="false" />
+    <Property Name="MaVot" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="GioHangId" Type="Int32" />
+    <NavigationProperty Name="GioHang" Relationship="DVHVOTModel.FK__SPGioHang__GioHa__05D8E0BE" FromRole="SPGioHang" ToRole="GioHang" />
+    <NavigationProperty Name="Vot" Relationship="DVHVOTModel.FK__SPGioHang__MaVot__04E4BC85" FromRole="SPGioHang" ToRole="Vot1" />
+  </EntityType>
+  <EntityType Name="Vot1">
+    <Key>
+      <PropertyRef Name="MaVot" />
+    </Key>
+    <Property Name="MaVot" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TenVot" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="GiaBan" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="SoLuongTon" Type="Int32" Nullable="false" />
+    <Property Name="Anh" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="SPDatHangs" Relationship="DVHVOTModel.FK__SPDatHang__MaVot__0A9D95DB" FromRole="Vot1" ToRole="SPDatHang" />
+    <NavigationProperty Name="SPGioHangs" Relationship="DVHVOTModel.FK__SPGioHang__MaVot__04E4BC85" FromRole="Vot1" ToRole="SPGioHang" />
+  </EntityType>
+  <Association Name="FK__SPDatHang__DatHa__0B91BA14">
+    <End Type="DVHVOTModel.DatHang" Role="DatHang" Multiplicity="0..1" />
+    <End Type="DVHVOTModel.SPDatHang" Role="SPDatHang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DatHang">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SPDatHang">
+        <PropertyRef Name="DatHangId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SPGioHang__GioHa__05D8E0BE">
+    <End Type="DVHVOTModel.GioHang" Role="GioHang" Multiplicity="0..1" />
+    <End Type="DVHVOTModel.SPGioHang" Role="SPGioHang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GioHang">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SPGioHang">
+        <PropertyRef Name="GioHangId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SPDatHang__MaVot__0A9D95DB">
+    <End Type="DVHVOTModel.Vot1" Role="Vot1" Multiplicity="0..1" />
+    <End Type="DVHVOTModel.SPDatHang" Role="SPDatHang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vot1">
+        <PropertyRef Name="MaVot" />
+      </Principal>
+      <Dependent Role="SPDatHang">
+        <PropertyRef Name="MaVot" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SPGioHang__MaVot__04E4BC85">
+    <End Type="DVHVOTModel.Vot1" Role="Vot1" Multiplicity="0..1" />
+    <End Type="DVHVOTModel.SPGioHang" Role="SPGioHang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vot1">
+        <PropertyRef Name="MaVot" />
+      </Principal>
+      <Dependent Role="SPGioHang">
+        <PropertyRef Name="MaVot" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

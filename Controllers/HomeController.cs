@@ -26,5 +26,10 @@ namespace QLBVot.Controllers
 
             return View();
         }
+        public ActionResult Dashboard()
+        {
+            // Logic cho bảng điều khiển Admin
+            return View();
+        }
     }
 }

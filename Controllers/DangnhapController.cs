@@ -1,82 +1,90 @@
-﻿using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Web.Mvc;
+﻿// DangnhapController.cs
 using QLBVot.Models;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace QLBVot.Controllers
 {
     public class DangnhapController : Controller
     {
-        private DVHVOTEntities db = new DVHVOTEntities();
+        private DVHVOTEntities7 db = new DVHVOTEntities7();
 
-        // GET: Dangnhap
-        public ActionResult Index()
+        // Action GET: Hiển thị form đăng nhập
+        [HttpGet]
+        public ActionResult Login()
         {
             return View();
         }
 
-        // POST: Dangnhap/Login
+        // Action POST: Xử lý đăng nhập
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(string username, string password)
+        public ActionResult Login(TAIKHOAN model)
         {
-            var user = db.TaiKhoans.FirstOrDefault(u => u.Username == username);
-
-            if (user == null)
+            if (ModelState.IsValid)
             {
-                ModelState.AddModelError("", "Tên đăng nhập không đúng.");
-                return View("Index");
-            }
+                // Kiểm tra tên đăng nhập và mật khẩu trong cơ sở dữ liệu
+                var user = db.TAIKHOANs.FirstOrDefault(u => u.Username == model.Username && u.Password == model.Password);
 
-            // Kiểm tra mật khẩu đã mã hóa
-            if (user.Password == HashPassword(password))
-            {
-                // Lưu thông tin người dùng vào session nếu đăng nhập thành công
-                Session["UserID"] = user.UserID;
-                Session["Username"] = user.Username;
-
-                return RedirectToAction("Index", "Home"); // Redirect to homepage after successful login
-            }
-            else
-            {
-                ModelState.AddModelError("", "Mật khẩu không đúng.");
-                return View("Index");
-            }
-        }
-
-        // Hàm mã hóa mật khẩu
-        private string HashPassword(string password)
-        {
-            using (SHA256 sha256Hash = SHA256.Create())
-            {
-                // Convert password to byte array and compute hash
-                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
-
-                // Convert byte array to string
-                StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < bytes.Length; i++)
+                if (user != null)
                 {
-                    builder.Append(bytes[i].ToString("x2"));
+                    // Lưu thông tin người dùng vào session sau khi đăng nhập thành công
+                    Session["User"] = user;
+
+                    // Đăng nhập thành công, chuyển hướng tới Vots/Index
+                    return RedirectToAction("Index", "Vots");
                 }
-                return builder.ToString();
+                else
+                {
+                    // Đăng nhập thất bại
+                    ViewData["ErrorMessage"] = "Tên đăng nhập hoặc mật khẩu không chính xác.";
+                }
             }
+            return View(model);
         }
 
-        // Đăng xuất
+
+        // Action GET: Hiển thị form đăng ký
+        [HttpGet]
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        // Action POST: Xử lý đăng ký
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Register(TAIKHOAN model)
+        {
+            if (ModelState.IsValid)
+            {
+                // Kiểm tra xem tên đăng nhập đã tồn tại chưa
+                var existingUser = db.TAIKHOANs.FirstOrDefault(u => u.Username == model.Username);
+                if (existingUser != null)
+                {
+                    ModelState.AddModelError("Username", "Tên đăng nhập đã tồn tại.");
+                    return View(model);
+                }
+
+                // Thêm người dùng mới vào cơ sở dữ liệu
+                db.TAIKHOANs.Add(model);
+                db.SaveChanges();
+
+                // Thông báo đăng ký thành công
+                TempData["SuccessMessage"] = "Đăng ký thành công!";
+                return RedirectToAction("Login");
+            }
+
+            return View(model);
+        }
         public ActionResult Logout()
         {
-            Session.Abandon();
-            return RedirectToAction("Index", "Dangnhap"); // Redirect to login page after logout
-        }
+            // Clear the session or any authentication cookies if set
+            Session.Clear(); // Clears all session data
+            Session.Abandon(); // Abandon the session
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+            // Redirect to the login page or home page after logging out
+            return RedirectToAction("Login", "Dangnhap");
         }
     }
 }

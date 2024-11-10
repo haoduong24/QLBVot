@@ -1,0 +1,48 @@
+﻿@model QLBVot.Models.ThanhToan
+
+@{
+    ViewBag.Title = "Thanh Toán";
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (Model != null)
+{
+    <h3>Thông tin đơn hàng</h3>
+    <p><strong>Mã đơn hàng:</strong> @Model.MaDonHang</p>
+    <p><strong>Tổng tiền:</strong> @(Model.SoTienThanhToan.HasValue ? Model.SoTienThanhToan.Value.ToString("C") : "Chưa có tổng tiền")</p>
+
+    <div>
+        <p>Chọn phương thức thanh toán:</p>
+
+        @using (Html.BeginForm("ThanhToan", "ThanhToans", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.MaDonHang) <!-- Truyền MaDonHang vào trong form -->
+
+            <label>
+                <input type="radio" name="phuongThucThanhToan" value="TienMat" checked="checked" />
+                Tiền mặt
+            </label>
+
+            <label>
+                <input type="radio" name="phuongThucThanhToan" value="VNPay" />
+                VNPay
+            </label>
+
+            <button type="submit" class="btn btn-success">Xác nhận thanh toán</button>
+        }
+
+        <a href="@Url.Action("Index", "Vots")" class="btn btn-primary">Tiếp tục mua sắm</a>
+    </div>
+}
+else
+{
+    <p>Không tìm thấy thông tin đơn hàng.</p>
+}
+    

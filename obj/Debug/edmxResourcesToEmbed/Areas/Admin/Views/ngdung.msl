@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DVHVOTModel1StoreContainer" CdmEntityContainer="DVHVOTEntities3">
+    <EntitySetMapping Name="DatHangs">
+      <EntityTypeMapping TypeName="DVHVOTModel1.DatHang">
+        <MappingFragment StoreEntitySet="DatHang">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="NgayDat" ColumnName="NgayDat" />
+          <ScalarProperty Name="TongTien" ColumnName="TongTien" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GioHangs">
+      <EntityTypeMapping TypeName="DVHVOTModel1.GioHang">
+        <MappingFragment StoreEntitySet="GioHang">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SPDatHangs">
+      <EntityTypeMapping TypeName="DVHVOTModel1.SPDatHang">
+        <MappingFragment StoreEntitySet="SPDatHang">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+          <ScalarProperty Name="MaVot" ColumnName="MaVot" />
+          <ScalarProperty Name="DatHangId" ColumnName="DatHangId" />
+          <ScalarProperty Name="Gia" ColumnName="Gia" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SPGioHangs">
+      <EntityTypeMapping TypeName="DVHVOTModel1.SPGioHang">
+        <MappingFragment StoreEntitySet="SPGioHang">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+          <ScalarProperty Name="MaVot" ColumnName="MaVot" />
+          <ScalarProperty Name="GioHangId" ColumnName="GioHangId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vots">
+      <EntityTypeMapping TypeName="DVHVOTModel1.Vot">
+        <MappingFragment StoreEntitySet="Vots">
+          <ScalarProperty Name="MaVot" ColumnName="MaVot" />
+          <ScalarProperty Name="TenVot" ColumnName="TenVot" />
+          <ScalarProperty Name="GiaBan" ColumnName="GiaBan" />
+          <ScalarProperty Name="SoLuongTon" ColumnName="SoLuongTon" />
+          <ScalarProperty Name="Anh" ColumnName="Anh" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NguoiDungs">
+      <EntityTypeMapping TypeName="DVHVOTModel1.NguoiDung">
+        <MappingFragment StoreEntitySet="NguoiDung">
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

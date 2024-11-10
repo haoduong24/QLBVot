@@ -12,7 +12,7 @@ namespace QLBVot.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class TaiKhoan
+    public partial class TAIKHOAN
     {
         public int UserID { get; set; }
         public string Username { get; set; }

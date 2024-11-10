@@ -1,0 +1,6 @@
+﻿@if (Session["UserID"] != null)
+{
+    <p>
+        <a href="@Url.Action("Logout", "Dangnhap")" class="btn btn-danger">Đăng xuất</a>
+    </p>
+}

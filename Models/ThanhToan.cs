@@ -17,9 +17,9 @@ namespace QLBVot.Models
         public int MaThanhToan { get; set; }
         public Nullable<int> MaDonHang { get; set; }
         public string PhuongThucThanhToan { get; set; }
-        public Nullable<System.DateTime> NgayThanhToan { get; set; }
         public Nullable<decimal> SoTienThanhToan { get; set; }
         public string TrangThaiThanhToan { get; set; }
+        public Nullable<System.DateTime> NgayThanhToan { get; set; }
     
         public virtual DonHang DonHang { get; set; }
     }

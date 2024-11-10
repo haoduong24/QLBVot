@@ -1,0 +1,141 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";  // Chỉ định layout từ khu vực Người Dùng
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giao Diện Người Dùng - Shopping Now</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"> <!-- Font Awesome for icons -->
+    <style>
+        /* Style cho sidebar */
+        .sidebar {
+            height: 100vh;
+            padding-top: 20px;
+        }
+
+        .nav-link {
+            font-size: 16px;
+            padding: 10px 15px;
+        }
+
+            .nav-link.active {
+                font-weight: bold;
+                background-color: #f8f9fa;
+            }
+
+        .btn-custom {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        /* Style cho giỏ hàng và các mục */
+        .user-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding: 20px;
+        }
+
+            .user-menu a {
+                padding: 10px;
+                font-size: 16px;
+                border-radius: 5px;
+                text-align: center;
+                transition: background-color 0.3s;
+            }
+
+                .user-menu a:hover {
+                    background-color: #007bff;
+                    color: white;
+                }
+
+        /* Main content */
+        .main-content {
+            padding-top: 20px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        /* Nút Quay Lại Trang Chủ Admin */
+        .back-to-admin-btn {
+            background-color: #28a745;
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+            .back-to-admin-btn:hover {
+                background-color: #218838;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar Người Dùng -->
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <!-- Quản lý đơn hàng -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="/User/Orders/Index">
+                                <i class="fas fa-box"></i> Quản lý đơn hàng
+                            </a>
+                        </li>
+
+                        <!-- Giỏ hàng -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="/User/Cart/Index">
+                                <i class="fas fa-shopping-cart"></i> Giỏ hàng
+                            </a>
+                        </li>
+
+                        <!-- Đặt hàng -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="/User/Orders/Checkout">
+                                <i class="fas fa-credit-card"></i> Đặt hàng
+                            </a>
+                        </li>
+
+                        <!-- Tài khoản -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="/User/Account/Profile">
+                                <i class="fas fa-user"></i> Tài khoản của tôi
+                            </a>
+                        </li>
+
+                        <!-- Đăng xuất -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="/User/Account/Logout">
+                                <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 main-content">
+                @RenderBody()  <!-- Phần nội dung của view sẽ được render ở đây -->
+                <!-- Nút Quay lại Trang Chủ Admin -->
+                <div class="back-to-admin">
+                    <a href="/Admin/Home/Index" class="back-to-admin-btn">
+                        <i class="fas fa-arrow-left"></i> Quay lại Trang Chủ Admin
+                    </a>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

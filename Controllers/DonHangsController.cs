@@ -12,7 +12,7 @@ namespace QLBVot.Controllers
 {
     public class DonHangsController : Controller
     {
-        private DVHVOTEntities db = new DVHVOTEntities();
+        private DVHVOTEntities7 db = new DVHVOTEntities7();
 
         // GET: DonHangs
         public ActionResult Index()

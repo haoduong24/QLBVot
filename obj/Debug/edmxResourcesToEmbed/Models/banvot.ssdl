@@ -11,6 +11,16 @@
     <Property Name="DonGia" Type="decimal" Precision="10" Scale="2" />
     <Property Name="ThanhTien" Type="decimal" Precision="10" Scale="2" />
   </EntityType>
+  <EntityType Name="DatHang">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="NgayDat" Type="datetime" Nullable="false" />
+    <Property Name="TongTien" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
   <EntityType Name="DonHang">
     <Key>
       <PropertyRef Name="MaDonHang" />
@@ -20,6 +30,13 @@
     <Property Name="TenKhachHang" Type="varchar" MaxLength="100" />
     <Property Name="TrangThai" Type="varchar" MaxLength="50" />
     <Property Name="TongTien" Type="decimal" Precision="10" Scale="2" />
+  </EntityType>
+  <EntityType Name="GioHang">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
   </EntityType>
   <EntityType Name="HoaDon">
     <Key>
@@ -47,6 +64,17 @@
     <Property Name="MaVot" Type="varchar" MaxLength="50" />
     <Property Name="SoLuongTon" Type="int" />
   </EntityType>
+  <EntityType Name="NguoiDung">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="PasswordHash" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Address" Type="nvarchar" MaxLength="255" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="15" />
+  </EntityType>
   <EntityType Name="NhanVien">
     <Key>
       <PropertyRef Name="MaNhanVien" />
@@ -57,14 +85,33 @@
     <Property Name="SoDienThoai" Type="varchar" MaxLength="15" />
     <Property Name="Email" Type="varchar" MaxLength="100" />
   </EntityType>
-  <EntityType Name="TaiKhoan">
+  <EntityType Name="SPDatHang">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SoLuong" Type="int" Nullable="false" />
+    <Property Name="MaVot" Type="nvarchar" MaxLength="50" />
+    <Property Name="DatHangId" Type="int" />
+    <Property Name="Gia" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SPGioHang">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SoLuong" Type="int" Nullable="false" />
+    <Property Name="MaVot" Type="nvarchar" MaxLength="50" />
+    <Property Name="GioHangId" Type="int" />
+  </EntityType>
+  <EntityType Name="TAIKHOAN">
     <Key>
       <PropertyRef Name="UserID" />
     </Key>
-    <Property Name="UserID" Type="int" Nullable="false" />
-    <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="Password" Type="varchar" MaxLength="255" Nullable="false" />
-    <Property Name="Email" Type="varchar" MaxLength="100" />
+    <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
   </EntityType>
   <EntityType Name="ThanhToan">
     <Key>
@@ -85,6 +132,17 @@
     <Property Name="TenVot" Type="varchar" MaxLength="100" />
     <Property Name="GiaBan" Type="decimal" Precision="10" Scale="2" />
     <Property Name="SoLuongTon" Type="int" />
+    <Property Name="Anh" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Vots">
+    <Key>
+      <PropertyRef Name="MaVot" />
+    </Key>
+    <Property Name="MaVot" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TenVot" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="GiaBan" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="SoLuongTon" Type="int" Nullable="false" />
+    <Property Name="Anh" Type="nvarchar" MaxLength="500" />
   </EntityType>
   <Association Name="FK__ChiTietDo__MaDon__267ABA7A">
     <End Role="DonHang" Type="Self.DonHang" Multiplicity="0..1" />
@@ -122,6 +180,54 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__SPDatHang__DatHa__0B91BA14">
+    <End Role="DatHang" Type="Self.DatHang" Multiplicity="0..1" />
+    <End Role="SPDatHang" Type="Self.SPDatHang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DatHang">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SPDatHang">
+        <PropertyRef Name="DatHangId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SPDatHang__MaVot__0A9D95DB">
+    <End Role="Vots" Type="Self.Vots" Multiplicity="0..1" />
+    <End Role="SPDatHang" Type="Self.SPDatHang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vots">
+        <PropertyRef Name="MaVot" />
+      </Principal>
+      <Dependent Role="SPDatHang">
+        <PropertyRef Name="MaVot" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SPGioHang__GioHa__05D8E0BE">
+    <End Role="GioHang" Type="Self.GioHang" Multiplicity="0..1" />
+    <End Role="SPGioHang" Type="Self.SPGioHang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GioHang">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SPGioHang">
+        <PropertyRef Name="GioHangId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SPGioHang__MaVot__04E4BC85">
+    <End Role="Vots" Type="Self.Vots" Multiplicity="0..1" />
+    <End Role="SPGioHang" Type="Self.SPGioHang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vots">
+        <PropertyRef Name="MaVot" />
+      </Principal>
+      <Dependent Role="SPGioHang">
+        <PropertyRef Name="MaVot" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__ThanhToan__MaDon__2D27B809">
     <End Role="DonHang" Type="Self.DonHang" Multiplicity="0..1" />
     <End Role="ThanhToan" Type="Self.ThanhToan" Multiplicity="*" />
@@ -136,14 +242,20 @@
   </Association>
   <EntityContainer Name="DVHVOTModelStoreContainer">
     <EntitySet Name="ChiTietDonHang" EntityType="Self.ChiTietDonHang" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DatHang" EntityType="Self.DatHang" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DonHang" EntityType="Self.DonHang" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GioHang" EntityType="Self.GioHang" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="HoaDon" EntityType="Self.HoaDon" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="KhachHang" EntityType="Self.KhachHang" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Kho" EntityType="Self.Kho" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NguoiDung" EntityType="Self.NguoiDung" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="NhanVien" EntityType="Self.NhanVien" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="TaiKhoan" EntityType="Self.TaiKhoan" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SPDatHang" EntityType="Self.SPDatHang" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SPGioHang" EntityType="Self.SPGioHang" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TAIKHOAN" EntityType="Self.TAIKHOAN" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ThanhToan" EntityType="Self.ThanhToan" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Vot" EntityType="Self.Vot" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Vots" EntityType="Self.Vots" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK__ChiTietDo__MaDon__267ABA7A" Association="Self.FK__ChiTietDo__MaDon__267ABA7A">
       <End Role="DonHang" EntitySet="DonHang" />
       <End Role="ChiTietDonHang" EntitySet="ChiTietDonHang" />
@@ -155,6 +267,22 @@
     <AssociationSet Name="FK__Kho__MaVot__31EC6D26" Association="Self.FK__Kho__MaVot__31EC6D26">
       <End Role="Vot" EntitySet="Vot" />
       <End Role="Kho" EntitySet="Kho" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SPDatHang__DatHa__0B91BA14" Association="Self.FK__SPDatHang__DatHa__0B91BA14">
+      <End Role="DatHang" EntitySet="DatHang" />
+      <End Role="SPDatHang" EntitySet="SPDatHang" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SPDatHang__MaVot__0A9D95DB" Association="Self.FK__SPDatHang__MaVot__0A9D95DB">
+      <End Role="Vots" EntitySet="Vots" />
+      <End Role="SPDatHang" EntitySet="SPDatHang" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SPGioHang__GioHa__05D8E0BE" Association="Self.FK__SPGioHang__GioHa__05D8E0BE">
+      <End Role="GioHang" EntitySet="GioHang" />
+      <End Role="SPGioHang" EntitySet="SPGioHang" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SPGioHang__MaVot__04E4BC85" Association="Self.FK__SPGioHang__MaVot__04E4BC85">
+      <End Role="Vots" EntitySet="Vots" />
+      <End Role="SPGioHang" EntitySet="SPGioHang" />
     </AssociationSet>
     <AssociationSet Name="FK__ThanhToan__MaDon__2D27B809" Association="Self.FK__ThanhToan__MaDon__2D27B809">
       <End Role="DonHang" EntitySet="DonHang" />

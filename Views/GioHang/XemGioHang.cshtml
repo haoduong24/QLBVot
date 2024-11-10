@@ -1,0 +1,46 @@
+﻿@model List<QLBVot.Models.GioHang>
+
+@if (Model.Count == 0)
+{
+    <p>Giỏ hàng của bạn trống. Hãy thêm sản phẩm vào giỏ hàng.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Sản phẩm</th>
+                <th>Số lượng</th>
+                <th>Giá</th>
+                <th>Thành tiền</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.TenVot</td>
+                    <td>@item.SoLuong</td>
+                    <td>@item.GiaBan</td>
+                    <td>@item.ThanhTien</td>
+                    <td>
+                        <form method="post" action="@Url.Action("XoaSanPham", "GioHang")">
+                            <input type="hidden" name="maVot" value="@item.MaVot" />
+                            <button type="submit" class="btn btn-danger">Xoá</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div>
+        <h3>Tổng: @ViewBag.TotalAmount</h3>
+        <form action="@Url.Action("DatHang", "DatHang")" method="post">
+            <button type="submit" class="btn btn-success">Đặt hàng</button>
+        </form>
+    </div>
+
+    <a href="@Url.Action("Index", "Vots")" class="btn-back">Quay lại</a>
+}
